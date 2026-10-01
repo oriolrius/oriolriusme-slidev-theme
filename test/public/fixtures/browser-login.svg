@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 525" width="720" height="525" font-family="Ubuntu, sans-serif">
+  <!-- Showcase fixture: the demo layout's side image (a browser wireframe on white). -->
+  <rect x="1" y="1" width="718" height="523" fill="#FFFFFF" stroke="#54595F" stroke-width="2"/>
+  <rect x="1" y="1" width="718" height="51" fill="#F4F4F4" stroke="#54595F" stroke-width="2"/>
+  <g fill="#D5D6D7"><rect x="18" y="20" width="12" height="12"/><rect x="38" y="20" width="12" height="12"/><rect x="58" y="20" width="12" height="12"/></g>
+  <rect x="80" y="10" width="624" height="32" fill="#FFFFFF" stroke="#D5D6D7" stroke-width="1.5"/>
+  <text x="92" y="33" font-family="Ubuntu Mono, monospace" font-size="20" fill="#575757">news.ycombinator.com/vote?id=…&amp;how=up&amp;goto=news</text>
+  <rect x="0" y="52" width="720" height="40" fill="#FF6600"/>
+  <text x="16" y="80" font-size="22" font-weight="700" fill="#151652">Hacker News</text>
+  <text x="182" y="178" font-size="28" font-weight="700" fill="#222222">Login</text>
+  <text x="182" y="228" font-size="22" fill="#222222">username:</text>
+  <rect x="322" y="204" width="220" height="34" fill="#FFFFFF" stroke="#7A7A7A" stroke-width="1.5"/>
+  <text x="182" y="276" font-size="22" fill="#222222">password:</text>
+  <rect x="322" y="252" width="220" height="34" fill="#FFFFFF" stroke="#7A7A7A" stroke-width="1.5"/>
+  <rect x="182" y="308" width="110" height="40" fill="#F4F4F4" stroke="#7A7A7A" stroke-width="1.5"/>
+  <text x="237" y="335" font-size="22" fill="#222222" text-anchor="middle">login</text>
+  <rect x="150" y="130" width="420" height="250" fill="none" stroke="#FF6600" stroke-width="4"/>
+  <text x="360" y="468" font-size="26" font-weight="700" fill="#C95000" text-anchor="middle">the agent is here</text>
+  <path d="M360 440 V392" stroke="#C95000" stroke-width="3"/>
+  <path d="M352 400 L360 386 L368 400 Z" fill="#C95000"/>
+  <text x="704" y="510" font-size="20" font-style="italic" fill="#54595F" text-anchor="end">wireframe · not a screenshot</text>
+</svg>

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+exports/
+*.pdf
+*.local
+.vite-inspect
+.remote-assets
+components.d.ts
+.slidev/
+.venv/

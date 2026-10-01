@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 260" width="1720" height="260" font-family="Ubuntu, sans-serif">
+  <!-- Showcase fixture for the code-focus bottom strip (1720x260, displayed at max 24vh). -->
+  <rect x="0" y="0" width="1720" height="260" fill="#FFFFFF"/>
+  <text x="18" y="28" font-size="22" font-weight="700" fill="#C95000"><tspan font-family="Ubuntu Mono, monospace">runHarness</tspan> · up to 3 attempts</text>
+  <rect x="16" y="40" width="1290" height="204" fill="#F4F4F4" stroke="#54595F" stroke-width="2"/>
+  <text x="32" y="66" font-size="22" font-weight="700" fill="#54595F"><tspan font-family="Ubuntu Mono, monospace">runHarnessAttempt</tspan> · opens the browser, always closes it</text>
+  <rect x="32" y="80" width="1258" height="150" fill="#FFFFFF" stroke="#151652" stroke-width="2"/>
+  <text x="48" y="106" font-size="22" font-weight="700" fill="#151652"><tspan font-family="Ubuntu Mono, monospace">runLoop</tspan> · ≤ 6 iterations on stage (15 in the repo)</text>
+  <g font-family="Ubuntu Mono, monospace" font-size="22" text-anchor="middle">
+    <rect x="60" y="124" width="200" height="64" fill="#E8E8F4" stroke="#151652" stroke-width="1.5"/>
+    <text x="160" y="163" fill="#151652">trimContext</text>
+    <rect x="310" y="124" width="180" height="64" fill="#FFF3EB" stroke="#FF6600" stroke-width="2"/>
+    <text x="400" y="163" fill="#151652">guardrail</text>
+    <rect x="540" y="124" width="160" height="64" fill="#151652"/>
+    <text x="620" y="164" fill="#FFFFFF" font-family="Ubuntu, sans-serif" font-weight="700" font-size="24">model</text>
+    <rect x="750" y="124" width="160" height="64" fill="#FFFFFF" stroke="#54595F" stroke-width="2"/>
+    <text x="830" y="163" fill="#151652">tools</text>
+    <rect x="960" y="124" width="230" height="64" fill="#FFFFFF" stroke="#FF6600" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="1075" y="154" fill="#151652">login hook</text>
+    <text x="1075" y="178" fill="#54595F" font-family="Ubuntu, sans-serif" font-style="italic" font-size="20">branch 4</text>
+  </g>
+  <g stroke="#54595F" stroke-width="2" fill="none">
+    <path d="M260 156 H304"/><path d="M490 156 H534"/><path d="M700 156 H744"/><path d="M910 156 H954"/>
+  </g>
+  <g fill="#54595F">
+    <path d="M304 150 L312 156 L304 162 Z"/><path d="M534 150 L542 156 L534 162 Z"/><path d="M744 150 L752 156 L744 162 Z"/><path d="M954 150 L962 156 L954 162 Z"/>
+  </g>
+  <path d="M1075 188 V214 H160 V194" stroke="#54595F" stroke-width="2" fill="none"/>
+  <path d="M154 196 L160 188 L166 196 Z" fill="#54595F"/>
+  <rect x="580" y="203" width="90" height="22" fill="#FFFFFF"/>
+  <text x="625" y="221" font-size="20" fill="#54595F" text-anchor="middle">repeat</text>
+  <path d="M1306 139 H1334" stroke="#FF6600" stroke-width="3"/>
+  <path d="M1334 132 L1342 139 L1334 146 Z" fill="#FF6600"/>
+  <rect x="1340" y="64" width="170" height="150" fill="#F46524"/>
+  <text x="1425" y="132" font-size="24" font-weight="700" fill="#151652" text-anchor="middle">verify</text>
+  <text x="1425" y="162" font-size="22" fill="#151652" text-anchor="middle" font-family="Ubuntu Mono, monospace">(trace)</text>
+  <g font-size="22" font-weight="700">
+    <text x="1532" y="92" fill="#0C8760">PASS → return</text>
+    <text x="1532" y="142" fill="#C95000">FATAL → stop</text>
+    <text x="1532" y="192" fill="#54595F">RETRY</text>
+  </g>
+  <path d="M1510 86 H1524 M1510 136 H1524 M1510 186 H1524" stroke="#54595F" stroke-width="2"/>
+  <path d="M1622 200 V230 H1320 V244" stroke="#54595F" stroke-width="2" stroke-dasharray="8 6" fill="none"/>
+  <rect x="1400" y="220" width="130" height="22" fill="#FFFFFF"/>
+  <text x="1465" y="238" font-size="20" fill="#54595F" text-anchor="middle">next attempt</text>
+</svg>

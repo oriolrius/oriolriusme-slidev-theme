@@ -1,0 +1,45 @@
+/*
+ * slidev-theme-oriolrius · "Or Symbols": glyphs the brand fonts do not have.
+ *
+ * Ubuntu, Ubuntu Sans Mono, Roboto and Yanone Kaffeesatz (as bundled by @fontsource) contain
+ * no arrows (→ ← ↑ ↓ ⇒) and no check marks (✓ ✗). Without this face every "0 → 4" would fall
+ * back to whatever the venue PC has (DejaVu on Linux, Segoe/Arial on Windows). These are tiny
+ * subsets of DejaVu Sans / DejaVu Sans Mono (free licence: fonts/LICENSE-DejaVu.txt), limited by
+ * unicode-range, and listed right after the brand family in every --or-font-* stack.
+ * Mono: size-adjust makes the arrow advance equal Ubuntu Sans Mono's (0.56em vs 0.602em), so
+ * code columns stay aligned.
+ */
+@font-face {
+  font-family: 'Or Symbols';
+  src: url('./fonts/or-symbols-400.woff2') format('woff2');
+  font-weight: 100 599;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+2190-2199, U+21A9-21AA, U+21D0-21D5, U+2713-2718, U+25A0-25A1, U+25B2-25BC;
+}
+@font-face {
+  font-family: 'Or Symbols';
+  src: url('./fonts/or-symbols-700.woff2') format('woff2');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+2190-2199, U+21A9-21AA, U+21D0-21D5, U+2713-2718, U+25A0-25A1, U+25B2-25BC;
+}
+@font-face {
+  font-family: 'Or Symbols Mono';
+  src: url('./fonts/or-symbols-mono-400.woff2') format('woff2');
+  font-weight: 100 599;
+  font-style: normal;
+  font-display: block;
+  size-adjust: 93%;
+  unicode-range: U+2190-2199, U+21A9-21AA, U+21D0-21D5, U+2713-2718, U+25A0-25A1, U+25B2-25BC;
+}
+@font-face {
+  font-family: 'Or Symbols Mono';
+  src: url('./fonts/or-symbols-mono-700.woff2') format('woff2');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: block;
+  size-adjust: 93%;
+  unicode-range: U+2190-2199, U+21A9-21AA, U+21D0-21D5, U+2713-2718, U+25A0-25A1, U+25B2-25BC;
+}

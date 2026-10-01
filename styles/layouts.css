@@ -1,0 +1,55 @@
+/*
+ * slidev-theme-oriolrius · restyled Slidev built-in layouts
+ * (real Slidev 52 classes, checked in @slidev/client/layouts/*.vue)
+ *
+ * The theme's own Vue layouts (cover, section, code-focus, demo, diagram, end, concepts,
+ * cards, four-grid) carry their CSS scoped in their .vue files.
+ */
+
+/* 7.1 default: base rules only (see base.css) */
+
+/* 7.2 center: DOM .slidev-layout.center.h-full.grid.place-content-center > .my-auto */
+.slidev-layout.center > .my-auto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 100%;
+  margin-inline: auto;
+}
+/* the h1 may use the full width (one line, even with an inline <Tag>); running text keeps the measure */
+.slidev-layout.center > .my-auto > h1 { margin-bottom: 2rem; max-width: 100%; }
+/* big Yanone numbers right under the title: their line-height is .9 and the "$" rises above the box, so the
+   rule would sit on the numerals; 1.5rem more puts ~56px between the rule and the glyph tops */
+.slidev-layout.center > .my-auto > h1 + .or-stats { margin-top: 1.5rem; }
+.slidev-layout.center > .my-auto > :is(p, ul, ol, h2, .or-lead, .or-aside) { max-width: var(--or-measure); }
+.slidev-layout.center > .my-auto > :is(h2, .or-lead, .or-aside, p) { text-wrap: balance; }
+/* a bare paragraph holding only a hero icon */
+.slidev-layout.center > .my-auto > p:has(> i[class*='fa-']:only-child) { line-height: 1; margin-bottom: 1.5rem; }
+.slidev-layout.center blockquote { text-align: left; max-width: 60rem; }
+.slidev-layout.center .or-quotecard { text-align: left; }
+
+/* 7.3 two-cols-header: DOM .slidev-layout.two-cols-header > .col-header/.col-left/.col-right/.col-bottom
+   Frontmatter `class` goes to the COLUMNS; `layoutClass` goes to the ROOT (use it for `dense`). */
+/* (0,1,0) through :where(), so an Uno `gap-x-16` in layoutClass wins by load order */
+.slidev-layout:where(.two-cols-header) { column-gap: var(--or-gap); }
+.slidev-layout.two-cols-header .col-header > h1 { margin-bottom: 1.75rem; }
+.slidev-layout.two-cols-header .col-left,
+.slidev-layout.two-cols-header .col-right { min-width: 0; }            /* long code / URLs can't widen a column */
+.slidev-layout.two-cols-header .col-bottom { align-self: end; }
+.slidev-layout.two-cols-header .col-bottom:not(:empty) { margin-top: 1.5rem; }
+.slidev-layout.two-cols-header .col-left img,
+.slidev-layout.two-cols-header .col-right img { width: 100%; height: auto; max-height: 72vh; object-fit: contain; }
+.slidev-layout.two-cols-header .col-left > :last-child,
+.slidev-layout.two-cols-header .col-right > :last-child { margin-bottom: 0; }
+/* a code block that opens a column starts flush with the other column's first element.
+   Slidev sets the wrapper margin as `var(--slidev-code-margin) !important`, so re-point the variable. */
+.slidev-layout.two-cols-header :is(.col-left, .col-right) > .slidev-code-wrapper:first-child { --slidev-code-margin: 0 0 1rem; }
+.slidev-layout.two-cols-header :is(.col-left, .col-right) > .slidev-code-wrapper:only-child { --slidev-code-margin: 0; }
+
+/* dense (appendix): tighter rhythm; tables and lists keep the 22px floor */
+.slidev-layout.dense .col-header > h1 { margin-bottom: 1.25rem; }
+.slidev-layout.dense :where(li) { margin-bottom: .4rem; }
+.slidev-layout.dense table { font-size: var(--or-fs-small); }
+/* row padding comes from --or-th-py / --or-td-py (tokens.css), only the sides tighten here */
+.slidev-layout.dense :is(td, th) { padding-inline: .75rem; }

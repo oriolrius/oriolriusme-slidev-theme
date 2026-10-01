@@ -1,0 +1,476 @@
+/*
+ * slidev-theme-oriolrius · CSS component classes
+ * All scoped under .slidev-layout, all reading ROLE tokens only, so they adapt to
+ * paper / mist / navy / band surfaces. Markdown inside an HTML block needs blank lines around it.
+ */
+
+/* ── or-frame: the brand's square orange frame (= the harness) ──────────────── */
+.slidev-layout .or-frame {
+  display: inline-block;
+  border: var(--or-frame) solid var(--or-accent);
+  padding: .35em 1.1em;
+  font-family: var(--or-font-sans);
+  font-size: 3rem;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--or-fg-title);
+  text-align: center;
+  text-wrap: balance;
+}
+.slidev-layout .or-frame > * { margin: 0; font: inherit; color: inherit; }
+.slidev-layout .or-frame.is-statement {
+  position: relative;
+  display: block;
+  max-width: 1400px;
+  padding: 1.5rem 3rem;
+  border-color: transparent;          /* the frame is drawn by ::before (it draws itself on entry) */
+  font-size: var(--or-fs-statement);
+  line-height: 1.25;
+}
+.slidev-layout .or-frame.is-statement::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--or-frame));
+  border: var(--or-frame) solid var(--or-accent);
+  pointer-events: none;
+  -webkit-mask: conic-gradient(#000 var(--or-draw), #0000 0);
+  mask: conic-gradient(#000 var(--or-draw), #0000 0);
+  animation: or-frame-draw .9s var(--or-ease) .15s backwards;
+}
+.slidev-layout :where(.or-frame.is-statement) { margin-inline: auto; }
+
+/* ── or-box: flat box with a 6px left bar ───────────────────────────────────── */
+.slidev-layout .or-box {
+  --or-fs-h3: 1.875rem;
+  padding: 1.25rem 1.5rem;
+  border-left: var(--or-bar) solid var(--or-accent);
+  border-radius: 0;
+}
+.slidev-layout :where(.or-box) { margin: 0 0 1.25rem; }
+.slidev-layout .or-box > :last-child { margin-bottom: 0; }
+.slidev-layout .or-box.neutral {
+  --or-code-inline-bg: var(--or-white);   /* the chip must differ from the grey box, or it reads as stray spaces */
+  background: var(--or-gray-100);
+  border-left-color: var(--or-slate);
+}
+.slidev-layout.surface-mist .or-box.neutral { --or-code-inline-bg: var(--or-gray-100); background: var(--or-white); }
+.slidev-layout .or-box.neutral h3 { color: var(--or-fg-title); }
+.slidev-layout .or-box.neutral h3 i { color: var(--or-slate); }
+.slidev-layout .or-box.highlight {
+  --or-accent-text: var(--or-orange-ink);
+  background: var(--or-orange-050);
+  border-left-color: var(--or-accent);
+}
+.slidev-layout .or-box.highlight strong { color: var(--or-fg-title); }
+
+/* ── callout: a GRID (icon column + content column), so several <p>/<strong> work ── */
+.slidev-layout .callout {
+  --c: var(--or-slate);
+  display: grid;
+  /* a FIXED icon column (FA's fixed-width 1.25em of the 1.6rem glyph): the text of stacked callouts
+     starts at the same x whatever the glyph (info circle, triangle, note, comment-dots) */
+  grid-template-columns: 2rem minmax(0, 1fr);
+  column-gap: 1.1rem;
+  row-gap: .5rem;
+  align-items: start;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid var(--c);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--c) 9%, var(--or-bg));
+  color: var(--or-fg-title);
+  font-size: calc(var(--or-fs-body) * .93);
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: left;
+}
+.slidev-layout :where(.callout) { margin: 0 0 1rem; }
+.slidev-layout .callout::before {
+  grid-column: 1;
+  grid-row: 1;
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-style: normal;
+  font-size: 1.6rem;
+  line-height: calc(var(--or-fs-body) * .93 * 1.35);
+  text-align: center;
+  color: var(--c);
+  content: '\f05a';
+}
+.slidev-layout .callout > * { grid-column: 2; margin: 0; }
+.slidev-layout .callout strong { color: var(--or-fg-title); font-weight: 700; }
+.slidev-layout .callout.info { --c: var(--or-slate); }   /* navy stays for dark moments (brand §2.2) */
+.slidev-layout .callout.info::before { content: '\f05a'; }
+.slidev-layout .callout.warning { --c: var(--or-orange-ink); }
+.slidev-layout .callout.warning::before { content: '\f071'; }
+.slidev-layout .callout.note { --c: var(--or-slate); }
+.slidev-layout .callout.note::before { content: '\f249'; }
+.slidev-layout .callout.plain {
+  --c: var(--or-orange);
+  background: var(--or-orange-050);
+  color: var(--or-fg-title);   /* slate on the peach tint, 6.49:1: navy is for dark moments and code only */
+}
+.slidev-layout .callout.plain::before { content: '\f4ad'; }
+.slidev-layout .callout.plain strong { color: var(--or-orange-ink); }
+
+/* SMALL orange text inside tinted boxes (callouts, or-box): the tints drop #C95000 / #BE4C00 to
+   3.8-4.2:1, fine for the >= 24px h3 / strong (large text) but not for 18px <Ts> chips or 22px
+   links on dense slides. They switch to the deep ink (>= 4.6:1 on every tint). Not on navy. */
+.slidev-layout :is(.callout, .or-box) { --or-ink-small: var(--or-orange-ink-deep); }
+.slidev-layout :is(.callout, .or-box) a:not(.or-ts) { color: var(--or-ink-small); }
+.slidev-layout.surface-navy :is(.callout, .or-box),
+.slidev-layout .surface-navy :is(.callout, .or-box) { --or-ink-small: var(--or-accent-text); }
+/* on navy the tint needs the navy mix, and text stays light */
+.slidev-layout.surface-navy .callout { color: var(--or-fg-body); }
+.slidev-layout.surface-navy .callout.info { --c: var(--or-navy-300); }
+.slidev-layout.surface-navy .callout strong { color: var(--or-white); }
+
+/* ── or-chip: outlined UI chip (Roboto 500, 22px) ───────────────────────────── */
+.slidev-layout .or-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  font-family: var(--or-font-ui);
+  font-size: var(--or-fs-small);
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: .2px;
+  padding: .35em .8em;
+  border: var(--or-outline) solid var(--or-fg-muted);
+  border-radius: var(--or-radius-ui);
+  color: var(--or-fg-title);
+  background: var(--or-chip-bg);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.slidev-layout .or-chip code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: .95em;
+}
+.slidev-layout .or-chip i[class*='fa-'] { color: inherit; }
+.slidev-layout .or-chip.pass { border-color: var(--or-pass); color: var(--or-pass); }
+.slidev-layout .or-chip.fail { border-color: var(--or-accent-text); color: var(--or-accent-text); }
+.slidev-layout .or-chip.muted { border-color: var(--or-fg-muted); color: var(--or-fg-muted); }
+.slidev-layout .or-chip.is-struck { color: var(--or-fg-muted); }
+.slidev-layout .or-chip.is-struck::after {
+  /* a diagonal slash from bottom-left to top-right, kept inside the chip whatever its width */
+  content: '';
+  position: absolute;
+  inset: 5px 6px;
+  background: linear-gradient(to bottom right,
+    transparent calc(50% - 2px), var(--or-accent) calc(50% - 2px),
+    var(--or-accent) calc(50% + 2px), transparent calc(50% + 2px));
+  pointer-events: none;
+}
+.slidev-layout .or-chip.on-band {
+  border-color: var(--or-navy);
+  color: var(--or-navy);
+  background: rgba(255, 255, 255, .18);
+}
+/* a chip may be a link (<a class="or-chip" href="…">): no underline, same colours */
+.slidev-layout a.or-chip { text-decoration: none; }
+/* a flex row of chips wraps instead of overflowing the slide */
+.slidev-layout .flex:has(> .or-chip),
+.slidev-layout .flex:has(> p > .or-chip) { flex-wrap: wrap; }
+
+/* ── or-pins + or-step: numbered pins under code (step N ↔ highlight step N) ── */
+.slidev-layout .or-pins {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .75rem var(--or-gap);
+  font-size: var(--or-pins-fs, 1.5rem);
+  font-weight: 400;
+  line-height: 1.35;
+}
+.slidev-layout .or-pins.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.slidev-layout .or-pins.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* is-large: 28px, the body size, for a short code block that leaves the pins room to read from the back */
+.slidev-layout .or-pins.is-large { --or-pins-fs: var(--or-fs-body); }
+.slidev-layout :where(.or-pins) { margin: 0 0 1rem; }
+/* pins are short and narrow: balanced lines by default ((0,1,0), so a Uno `text-pretty` still wins) */
+.slidev-layout :where(.or-pins > p) { text-wrap: balance; }
+.slidev-layout .or-pins > p {
+  position: relative;
+  margin: 0;
+  min-height: 40px;
+  padding-left: calc(40px + .85rem);
+  color: var(--or-fg-body);
+}
+.slidev-layout .or-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  background: var(--or-accent);
+  color: var(--or-navy);
+  font-family: var(--or-font-ui);
+  font-size: 1.25rem;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+.slidev-layout .or-pins > p code { white-space: normal; }   /* pins are narrow: long code breaks at spaces */
+.slidev-layout .or-pins > p > .or-step:first-child {
+  position: absolute;
+  left: 0;
+  top: calc((1lh - 40px) / 2);   /* centred on the FIRST line, whatever the pins' size */
+}
+
+/* ── or-stats / or-stat: big Yanone numbers with a caption ──────────────────── */
+.slidev-layout .or-stats {
+  display: flex;
+  gap: 6rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+.slidev-layout :where(.or-stats) { margin: 0 0 2rem; }
+.slidev-layout .or-stat { text-align: center; }
+.slidev-layout .or-stat b {
+  display: block;
+  font-family: var(--or-font-display);
+  font-size: var(--or-fs-stat);
+  font-weight: 600;
+  line-height: .9;
+  letter-spacing: 0;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--or-accent-text-large);
+}
+.slidev-layout .or-stat span {
+  display: block;
+  max-width: 22em;
+  text-wrap: balance;
+  margin: .5rem auto 0;
+  font-family: var(--or-font-sans);
+  font-size: var(--or-fs-small);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--or-fg-body);
+}
+.slidev-layout.surface-navy .or-stat b { font-size: 8rem; color: var(--or-orange-bright); }
+
+/* ── or-predict: A / B / C prediction rows (the audience bets) ──────────────── */
+.slidev-layout .or-predict {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.slidev-layout .or-predict > p {
+  position: relative;
+  margin: 0;
+  min-height: 64px;
+  padding: calc((64px - 1lh) / 2) 0 calc((64px - 1lh) / 2) calc(64px + 1.25rem);
+  font-size: var(--or-fs-body);
+  line-height: 1.35;
+  color: var(--or-fg-body);
+}
+.slidev-layout .or-predict > p > b:first-child {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 3px solid var(--or-accent-text-large);
+  font-family: var(--or-font-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--or-accent-text-large);
+  transition: background-color var(--or-dur) var(--or-ease), color var(--or-dur) var(--or-ease),
+    border-color var(--or-dur) var(--or-ease);
+}
+.slidev-layout .or-predict > p { transition: color var(--or-dur) var(--or-ease); }
+/* Resolution. Mark the right row with class="is-answer". It lights up only once the bet is resolved:
+   - explicitly: <div class="or-predict is-resolved">, or
+   - automatically on `demo`: as soon as a v-click in the verdict row is revealed.
+   Before that nothing gives the answer away. */
+.slidev-layout .or-predict.is-resolved > p.is-answer > b:first-child,
+.slidev-layout.demo:has(.verdict .slidev-vclick-target:not(.slidev-vclick-hidden)) .or-predict > p.is-answer > b:first-child {
+  background: var(--or-accent-text-large);
+  color: var(--or-bg);
+}
+.slidev-layout .or-predict.is-resolved > p.is-answer,
+.slidev-layout.demo:has(.verdict .slidev-vclick-target:not(.slidev-vclick-hidden)) .or-predict > p.is-answer {
+  color: var(--or-fg-title);
+  font-weight: 400;
+}
+/* the losing bets step back in ROLE colours, not opacity (orange at 45% over navy turned a muddy
+   brown #7F4843): text and letter in --or-fg-dim (#8C8FBF on navy, #7A7A7A on paper), frame in --or-line */
+.slidev-layout .or-predict.is-resolved:has(> p.is-answer) > p:not(.is-answer),
+.slidev-layout.demo:has(.verdict .slidev-vclick-target:not(.slidev-vclick-hidden)) .or-predict:has(> p.is-answer) > p:not(.is-answer) {
+  color: var(--or-fg-dim);
+}
+.slidev-layout .or-predict.is-resolved:has(> p.is-answer) > p:not(.is-answer) > b:first-child,
+.slidev-layout.demo:has(.verdict .slidev-vclick-target:not(.slidev-vclick-hidden)) .or-predict:has(> p.is-answer) > p:not(.is-answer) > b:first-child {
+  border-color: var(--or-line);
+  color: var(--or-fg-dim);
+}
+
+/* ── or-checklist: square-check bullets ────────────────────────────────────── */
+.slidev-layout ul.or-checklist { list-style: none; padding-left: 2.5rem; }
+.slidev-layout ul.or-checklist > :where(li) { margin-bottom: .75rem; }
+.slidev-layout ul.or-checklist > li::before {
+  /* a SQUARE box with a check (FA's square-check has rounded corners; the brand is strictly square) */
+  content: '\f00c';
+  left: -2.25rem;
+  /* centred on the item's FIRST line: the pseudo is .6em of the item, whose line is 1.35 × its size,
+     so (line - box) / 2 = 1.125em - .6rem */
+  top: calc(1.125em - .6rem);
+  display: grid;
+  place-items: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  outline: 3px solid var(--or-accent);
+  outline-offset: -3px;
+  background: var(--or-orange-050);
+  font-size: .6em;
+  line-height: 1;
+  color: var(--or-accent-text);
+}
+
+/* ── QuoteCard spacing (component CSS lives in components/QuoteCard.vue): room on the pointer's side ── */
+.slidev-layout :where(.or-quotecard) { margin-bottom: 1.75rem; }
+.slidev-layout :where(.or-quotecard.pointer-up) { margin-top: .75rem; }
+/* in a bottom slot the (auto) pointer is UP: room above, nothing below (the footer line is next) */
+.slidev-layout :where(:is(.verdict, .bottom, .col-bottom, .callout-area) .or-quotecard:not(.pointer-down)) { margin-top: .75rem; margin-bottom: 0; }
+.slidev-layout :where(:is(.verdict, .bottom, .col-bottom, .callout-area) .or-quotecard.pointer-none) { margin-top: 0; }
+
+/* ── or-table: table options (wrap a markdown table: <div class="or-table roomy num-last">) ── */
+.slidev-layout .or-table.roomy { --or-th-py: 1rem; --or-td-py: 1.25rem; }
+/* airy: a short table (≤ 6 rows) that would leave the slide top-heavy: the rows breathe instead of
+   the cells shrinking (smaller cells only buy orphan wraps) */
+.slidev-layout .or-table.airy { --or-th-py: 1.1rem; --or-td-py: 1.75rem; }
+/* the last column is a number: right-aligned mono tabular figures that never wrap */
+.slidev-layout .or-table.num-last :is(th, td):last-child {
+  text-align: right;
+  font-family: var(--or-font-mono);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.slidev-layout .or-table.num-last th:last-child { font-family: var(--or-font-ui); font-weight: 500; }
+
+/* ── or-meter: the site's orange progress bar (sobre-mi skills): the value or label ON TOP, a flat orange
+   bar UNDER it across the whole width of its box (a table cell, a column), on the light track. --v = the
+   fill, 0-1 (bars start at zero). <span class="or-meter" style="--v:.56">383</span>
+   In a table it never widens its column: the bar takes the width the column already has. ── */
+.slidev-layout .or-meter {
+  display: grid;
+  row-gap: .4rem;
+  min-width: 0;
+}
+.slidev-layout .or-meter::after {
+  content: '';
+  display: block;
+  height: var(--or-meter-h, .625rem);   /* 10px in a table row; standalone use can set 1.5rem (the brand's 24px) */
+  background:
+    linear-gradient(var(--or-accent), var(--or-accent)) 0 0 / calc(clamp(0, var(--v, 0), 1) * 100%) 100% no-repeat,
+    var(--or-meter-track, var(--or-gray-100));
+}
+.slidev-layout .or-meter.is-large { --or-meter-h: 1.5rem; }
+.slidev-layout.surface-mist .or-meter,
+.slidev-layout .surface-mist .or-meter { --or-meter-track: var(--or-white); }
+.slidev-layout.surface-navy .or-meter,
+.slidev-layout .surface-navy .or-meter { --or-meter-track: var(--or-navy-700); }
+
+/* ── or-refs: a reference list where a leading FA icon REPLACES the chevron ────── */
+.slidev-layout ul.or-refs { padding-left: 2.25rem; }
+.slidev-layout ul.or-refs > li::before { content: none; }
+.slidev-layout ul.or-refs > li + li { margin-top: 1rem; }
+.slidev-layout ul.or-refs > li > i[class*='fa-']:first-child {
+  position: absolute;
+  left: -2.25rem;
+  top: .15em;
+  width: 1.6rem;
+  text-align: center;
+  color: var(--or-accent);
+}
+.slidev-layout ul.or-refs time { white-space: nowrap; }
+/* or-src: an upright source / URL line (not the italic aside): <span class="or-src">[url](…)</span> */
+.slidev-layout .or-src {
+  display: block;
+  font-family: var(--or-font-sans);
+  font-size: var(--or-fs-small);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: .2px;
+}
+.slidev-layout .or-src a { white-space: nowrap; }
+
+/* ── v-mark (rough-notation): always the brand accent, so slides never need a hex colour, and a 3px
+   stroke (rough-notation's default is ~1.5px, a hairline next to the brand's 3-4px frames on a projector) ── */
+.slidev-layout svg.rough-annotation path { stroke: var(--or-accent); stroke-width: 3px; }
+
+/* ── small text helpers ───────────────────────────────────────────────────── */
+.slidev-layout .or-aside {
+  font-family: var(--or-font-sans);
+  font-size: var(--or-fs-small);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: .2px;
+  color: var(--or-fg-muted);
+}
+.slidev-layout .or-attribution {
+  font-family: var(--or-font-ui);
+  font-size: var(--or-fs-small);
+  font-weight: 500;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--or-fg-muted);
+}
+.slidev-layout .or-attribution .or-ts { text-transform: none; }
+
+/* ── zoomable images (behaviour in setup/main.ts) ──────────────────────────── */
+.slidev-layout img.zoomable { cursor: zoom-in; }
+
+/* the zoom overlay lives on <body>, outside any slide */
+.or-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, .98);
+  opacity: 0;
+  pointer-events: none;
+  cursor: zoom-out;
+  transition: opacity .3s cubic-bezier(.25, .1, .25, 1);
+}
+.or-zoom.active { opacity: 1; pointer-events: auto; }
+.or-zoom img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+
+/* ── code size outside code-focus (never below 20px) ───────────────────────── */
+/* <div class="or-code-20"> ```…``` </div>, or on a column via two-cols-header `class:` */
+.slidev-layout .or-code-22 { --slidev-code-font-size: 22px; }
+.slidev-layout .or-code-20 { --slidev-code-font-size: 20px; --slidev-code-padding: 1.1rem; }
+
+/* ── the frame draws itself (dividers, framed statements) ───────────────────── */
+/* initial-value 360deg = a COMPLETE frame whenever the animation doesn't run (print/export freeze
+   animations, prefers-reduced-motion), so a still is never caught with half a frame. */
+@property --or-draw {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 360deg;
+}
+@keyframes or-frame-draw {
+  from { --or-draw: 0deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slidev-layout .or-frame.is-statement::before { animation: none; }
+}

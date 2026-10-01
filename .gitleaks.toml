@@ -1,0 +1,12 @@
+# Default gitleaks rules plus paths that are never ours to scan.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Dependencies and build output"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)dist/''',
+  '''(^|/)exports/''',
+  '''pnpm-lock\.yaml$''',
+]

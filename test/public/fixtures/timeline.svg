@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 500" width="1720" height="500" font-family="Ubuntu, sans-serif">
+  <!-- Showcase fixture for the diagram layout (1720x500): milestones on an orange axis. -->
+  <rect x="0" y="0" width="1720" height="500" fill="#FFFFFF"/>
+  <path d="M40 250 H1680" stroke="#FF6600" stroke-width="4"/>
+  <g font-size="22" fill="#575757">
+    <rect x="96" y="226" width="48" height="48" fill="#151652"/>
+    <text x="120" y="200" text-anchor="middle" font-weight="700" fill="#151652">2021</text>
+    <text x="120" y="320" text-anchor="middle">eval harness</text>
+    <text x="120" y="348" text-anchor="middle" font-size="20" font-style="italic" fill="#54595F">the ML meaning</text>
+    <rect x="386" y="226" width="48" height="48" fill="#151652"/>
+    <text x="410" y="200" text-anchor="middle" font-weight="700" fill="#151652">2022-10</text>
+    <text x="410" y="320" text-anchor="middle">ReAct</text>
+    <text x="410" y="348" text-anchor="middle" font-size="20" font-style="italic" fill="#54595F">reason + act</text>
+    <rect x="676" y="226" width="48" height="48" fill="#151652"/>
+    <text x="700" y="200" text-anchor="middle" font-weight="700" fill="#151652">2025</text>
+    <text x="700" y="320" text-anchor="middle">agents</text>
+    <text x="700" y="348" text-anchor="middle" font-size="20" font-style="italic" fill="#54595F">tools in a loop</text>
+    <rect x="966" y="226" width="48" height="48" fill="#151652"/>
+    <text x="990" y="200" text-anchor="middle" font-weight="700" fill="#151652">2026-02</text>
+    <text x="990" y="320" text-anchor="middle">harness engineering</text>
+    <text x="990" y="348" text-anchor="middle" font-size="20" font-style="italic" fill="#54595F">the habit gets a name</text>
+    <rect x="1256" y="226" width="48" height="48" fill="#151652"/>
+    <text x="1280" y="200" text-anchor="middle" font-weight="700" fill="#151652">2026-04</text>
+    <text x="1280" y="320" text-anchor="middle">guides and sensors</text>
+    <text x="1280" y="348" text-anchor="middle" font-size="20" font-style="italic" fill="#54595F">the talk</text>
+    <rect x="1548" y="228" width="44" height="44" fill="#FFFFFF" stroke="#FF6600" stroke-width="4"/>
+    <text x="1570" y="200" text-anchor="middle" font-weight="700" fill="#C95000">2027?</text>
+    <text x="1570" y="320" text-anchor="middle">self-built harnesses</text>
+    <rect x="1508" y="340" width="124" height="30" fill="#FFFFFF" stroke="#54595F" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="1570" y="362" text-anchor="middle" font-size="20" font-weight="700" fill="#54595F">OPINION</text>
+  </g>
+  <text x="1680" y="470" font-size="20" font-style="italic" fill="#54595F" text-anchor="end">not to scale · showcase fixture</text>
+</svg>

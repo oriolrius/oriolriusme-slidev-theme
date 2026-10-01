@@ -1,0 +1,179 @@
+/*
+ * slidev-theme-oriolrius · design tokens
+ *
+ * Two tiers:
+ *   1. RAW brand tokens (hex, measured from oriolrius.me). Rules never read them directly,
+ *      except the global layers (footer / hairline), which live outside any .slidev-layout.
+ *   2. ROLE tokens (--or-bg, --or-fg-*, --or-accent*, ...). Every rule reads these. A surface
+ *      class (surface-mist / surface-navy / surface-band) re-points them, so every component
+ *      adapts to paper, mist, navy and band without per-component variants.
+ *
+ * Canvas: 1920x1080, 1rem = 16px. Sizes are VARIABLES: layouts change variables, not rules.
+ */
+
+:root {
+  /* ── raw brand ─────────────────────────────────────────────────────────── */
+  --or-orange: #FF6600;          /* site UI accent: NON-TEXT only on white (2.94:1) */
+  --or-orange-brand: #F46524;    /* logo orange: bands; white text only >= 48px bold (3.12:1) */
+  --or-orange-ink: #C95000;      /* orange TEXT on white, any size (4.53:1) */
+  --or-orange-ink-mist: #BE4C00; /* orange TEXT on #F4F4F4 (4.52:1) */
+  --or-orange-ink-deep: #A84300; /* SMALL orange text (<Ts>, links) on tinted boxes: callouts, or-box
+                                    (>= 4.6:1 on every tint; #C95000 is only 3.8-4.2 there) */
+  --or-orange-ink-large: #E85A12;/* LARGE orange text (>= 24px: h3, stats, kickers, predict letters):
+                                    3.56:1 on #FFF, 3.23 on #F4F4F4, 3.27 on #FFF3EB (AA-large). The
+                                    closest AA-large ink to the brand #F46524 (2.84 on mist) */
+  --or-orange-bright: #FF8533;   /* orange TEXT on navy (6.82:1) */
+  --or-orange-050: #FFF3EB;      /* highlight tint; slate on it 6.49:1, navy 15.19:1 */
+  --or-slate: #54595F;           /* titles (7.07:1) */
+  --or-gray-text: #575757;       /* body (7.23:1 white, 6.57:1 mist) */
+  --or-gray-muted: #7A7A7A;      /* the site's own body grey. On slides ONLY de-emphasised text >= 24px
+                                    (4.29:1 on white, 3.9:1 on mist): the losing .or-predict bets */
+  --or-gray-100: #F4F4F4;        /* mist surface, card bodies */
+  --or-hairline: #D5D6D7;        /* table rows, dividers (decorative) */
+  --or-white: #FFFFFF;
+  --or-navy: #151652;            /* moment surface + code */
+  --or-navy-900: #0E0F3A;        /* terminal window, raised-dark */
+  --or-navy-700: #23246B;        /* inline code on navy, cards on navy */
+  --or-navy-500: #3D3F99;        /* hairlines on navy */
+  --or-navy-300: #8C8FBF;        /* muted text on navy (5.36:1) */
+  --or-navy-100: #E8E8F4;        /* navy tint (diagram fills) */
+  --or-green-ink: #0C8760;       /* PASS text on white (4.52:1) */
+  --or-green-ink-mist: #0A7C58;  /* PASS text on #F4F4F4 (4.73:1; #0C8760 is only 4.11 there) */
+  --or-green-bright: #3CCB98;    /* PASS on navy (8.03:1) */
+
+  /* ── fonts (@fontsource-variable registers "<Family> Variable") ────────── */
+  /* 'Or Symbols' (styles/symbols.css) supplies the arrows / checks the brand fonts lack */
+  --or-font-sans: 'Ubuntu', 'Or Symbols', system-ui, sans-serif;
+  --or-font-mono: 'Ubuntu Sans Mono Variable', 'Or Symbols Mono', 'Ubuntu Mono', ui-monospace, monospace;
+  --or-font-display: 'Yanone Kaffeesatz Variable', 'Or Symbols', 'Ubuntu Condensed', sans-serif;
+  --or-font-ui: 'Roboto Variable', 'Or Symbols', 'Ubuntu', sans-serif;
+
+  /* ── type scale (1920x1080 canvas, 1rem = 16px) ───────────────────────── */
+  --or-fs-display: 5.5rem;    /*  88  cover title */
+  --or-fs-divider: 4.5rem;    /*  72  section title in frame */
+  --or-fs-title: 3.5rem;      /*  56  slide h1 (dense too: one title size across the deck) */
+  --or-fs-statement: 3.25rem; /*  52  framed statement */
+  --or-fs-lead: 2.125rem;     /*  34  h2 = lead, Ubuntu 500 italic */
+  --or-fs-h3: 2.5rem;         /*  40  box / concept title */
+  --or-fs-body: 1.75rem;      /*  28  Ubuntu 300 (dense: 24 @400) */
+  --or-fs-small: 1.375rem;    /*  22  captions, asides, table cells: THE FLOOR for text */
+  --or-fs-kicker: 2rem;       /*  32  Yanone 600 uppercase */
+  --or-fs-stat: 10rem;        /* 160  Yanone 600 numbers */
+  --or-fs-ui: 1.25rem;        /*  20  Roboto 500 chips / tags (uppercase only) */
+  --or-fs-code: 1.5rem;       /*  24  code (code-focus codeSize 22/20 on long lines) */
+  --or-fs-meta: 1rem;         /*  16  footer only */
+  --or-lh-tight: 1.1;
+  --or-lh-heading: 1.2;
+  --or-lh-body: 1.35;
+  --or-lh-lead: 1.45;
+  --or-lh-code: 1.5;
+  --or-ls-body: .5px;
+  --or-ls-kicker: 1px;
+
+  /* ── space / shape / motion ───────────────────────────────────────────── */
+  --or-pad-top: 4rem;         /* 64 */
+  --or-pad-x: 6rem;           /* 96 */
+  --or-pad-bottom: 5.5rem;    /* 88: the CONTENT LINE is y 992, 30px clear of the footer's framed logo
+                                 (y 1022), so a boxed panel that ends on the line never touches it */
+  --or-gap: 3rem;             /* 48 column gap */
+  --or-measure: 75rem;        /* 1200 centred text */
+  --or-frame: 4px;
+  --or-rule: 4px;
+  --or-bar: 6px;
+  --or-outline: 2px;
+  --or-radius: 0;
+  --or-radius-ui: 4px;
+  --or-ease: cubic-bezier(.25, .1, .25, 1);
+  --or-dur: .3s;
+
+  /* ── Slidev variables: set them, don't fight them (Slidev applies several with !important) ── */
+  --slidev-theme-primary: #FF6600;
+  --slidev-code-background: var(--or-navy);
+  --slidev-code-foreground: #F4F4F4;
+  --slidev-code-font-family: var(--or-font-mono);
+  --slidev-code-font-size: var(--or-fs-code);
+  --slidev-code-line-height: var(--or-lh-code);
+  --slidev-code-padding: 1.5rem;        /* single value: Slidev also uses it for padding-left */
+  --slidev-code-radius: 0;
+  --slidev-code-margin: 1rem 0;
+  --slidev-slide-container-background: var(--or-navy);  /* letterbox */
+}
+
+/* ── role tokens: PAPER (default) ───────────────────────────────────────── */
+.slidev-layout {
+  --or-bg: var(--or-white);
+  --or-fg-title: var(--or-slate);
+  --or-fg-body: var(--or-gray-text);
+  --or-fg-muted: var(--or-slate);
+  --or-fg-dim: var(--or-gray-muted);        /* de-emphasised text >= 24px (the losing .or-predict bets) */
+  --or-accent: var(--or-orange);            /* non-text: rules, frames, bullets, icons */
+  --or-accent-text: var(--or-orange-ink);   /* orange TEXT at any size: links, <Ts>, small labels */
+  --or-accent-text-large: var(--or-orange-ink-large);  /* orange TEXT >= 24px: h3, stats, kickers */
+  --or-pass: var(--or-green-ink);
+  --or-line: var(--or-hairline);
+  --or-card-bg: var(--or-gray-100);
+  --or-chip-bg: transparent;
+  --or-code-inline-bg: var(--or-gray-100);
+  --or-code-inline-fg: var(--or-navy);
+}
+
+/* Surfaces work on the slide root (`class: surface-mist`, or `layoutClass` on two-cols-header)
+   AND as "islands" on any element inside a slide (<div class="surface-navy p-8">…</div>):
+   the island re-points the role tokens and paints its own background. */
+
+/* MIST: alternate content surface */
+:is(.slidev-layout.surface-mist, .slidev-layout .surface-mist) {
+  --or-bg: var(--or-gray-100);
+  --or-accent-text: var(--or-orange-ink-mist);
+  --or-pass: var(--or-green-ink-mist);
+  --or-card-bg: var(--or-white);
+  --or-code-inline-bg: var(--or-white);
+}
+
+/* NAVY: moments (set by cover.vue and demo.vue) */
+:is(.slidev-layout.surface-navy, .slidev-layout .surface-navy) {
+  --or-bg: var(--or-navy);
+  --or-fg-title: var(--or-white);
+  --or-fg-body: #F4F4F4;
+  --or-fg-muted: var(--or-navy-300);
+  --or-fg-dim: var(--or-navy-300);
+  --or-accent-text: var(--or-orange-bright);
+  --or-accent-text-large: var(--or-orange-bright);
+  --or-pass: var(--or-green-bright);
+  --or-line: var(--or-navy-500);
+  --or-card-bg: var(--or-navy-700);
+  --or-code-inline-bg: var(--or-navy-700);
+  --or-code-inline-fg: #F4F4F4;
+  --slidev-code-background: var(--or-navy-900);
+}
+
+/* BAND: orange (set by section.vue and end.vue) */
+:is(.slidev-layout.surface-band, .slidev-layout .surface-band) {
+  --or-bg: var(--or-orange-brand);
+  --or-fg-title: var(--or-white);    /* >= 48px bold ONLY */
+  --or-fg-body: var(--or-navy);      /* everything < 48px */
+  --or-fg-muted: var(--or-navy);
+  --or-fg-dim: var(--or-navy);
+  --or-accent: var(--or-white);      /* frames on the band are white */
+  --or-accent-text: var(--or-navy);
+  --or-accent-text-large: var(--or-navy);
+  --or-line: var(--or-navy);
+  --or-code-inline-bg: rgba(255, 255, 255, .22);
+  --or-code-inline-fg: var(--or-navy);
+}
+
+/* islands paint themselves; the slide root is painted by base.css */
+.slidev-layout :is(.surface-mist, .surface-navy, .surface-band) {
+  background: var(--or-bg);
+  color: var(--or-fg-body);
+}
+
+/* DENSE: appendix (on two-cols-header pass it through `layoutClass`).
+   The h1 keeps its 56px (one title size across the deck); body, h3 and tables tighten. */
+.slidev-layout.dense {
+  --or-fs-body: 1.5rem;
+  --or-fw-body: 400;
+  --or-fs-h3: 1.75rem;
+  --or-th-py: .4rem;
+  --or-td-py: .4rem;
+}

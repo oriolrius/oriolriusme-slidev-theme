@@ -1,0 +1,85 @@
+/*
+ * slidev-theme-oriolrius · code blocks
+ *
+ * ALWAYS scoped to .slidev-layout (the slide root). Never style bare pre / code / .shiki: Slidev's
+ * "Show editor" pane is a transparent textarea over a Shiki <pre> and must keep its metrics; the
+ * editor pane is never inside a .slidev-layout. (Not .slidev-slide-container: the stacked /print
+ * route and the browser exporter render slides in .print-slide-container, without it.)
+ * Sizes, padding, radius, margin and background come from the --slidev-code-* variables set in
+ * tokens.css (Slidev applies them with !important on .slidev-code): set them, don't fight them.
+ */
+
+.slidev-layout .slidev-code-wrapper {
+  margin: var(--slidev-code-margin);
+}
+
+.slidev-layout .slidev-code {
+  border-left: var(--or-rule) solid var(--or-orange);   /* the brand bar */
+  background: var(--slidev-code-background);
+  color: var(--slidev-code-foreground);
+  letter-spacing: 0;
+  font-weight: 400;
+  font-variant-ligatures: none;
+  scrollbar-width: none;                                 /* a projector has no scrollbar */
+  text-align: left;
+}
+.slidev-layout .slidev-code::-webkit-scrollbar { display: none; }
+/* the Tailwind reset puts a system mono on `code` itself: inherit the brand mono from the block */
+.slidev-layout .slidev-code code,
+.slidev-layout .slidev-code .line,
+.slidev-layout .slidev-code span {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+/* Full-width lines: lets the current-line highlight span the whole block.
+   Whitespace-only text between .line spans is not rendered inside a flex container. */
+.slidev-layout .slidev-code > code {
+  display: flex;
+  flex-direction: column;
+  min-width: max-content;
+}
+.slidev-layout .slidev-code > code > .line {
+  display: block;
+  min-height: 1lh;
+  margin-inline: calc(-1 * var(--slidev-code-padding));
+  padding-inline: var(--slidev-code-padding);
+}
+
+/* click-through highlighting: dimmed lines + the current step marked in orange */
+.slidev-layout .slidev-code .slidev-code-dishonored {
+  opacity: .5;   /* dimmed, not gone: ~4.5:1 for body text, ~3:1 for orange keywords, so the
+                    function keeps its shape while the orange-marked line stays dominant */
+  transition: opacity var(--or-dur) var(--or-ease);
+}
+.slidev-layout .slidev-code .line.slidev-code-highlighted {
+  transition: background-color var(--or-dur) var(--or-ease);
+}
+/* only mark lines when a subset is highlighted (i.e. some other line is dimmed) */
+.slidev-layout .slidev-code:has(.slidev-code-dishonored) .line.slidev-code-highlighted {
+  background: rgba(255, 102, 0, .14);
+  box-shadow: inset 4px 0 0 var(--or-orange);
+}
+
+/* line numbers (Slidev native: lineNumbers / {lines:true}) */
+.slidev-layout .slidev-code-line-numbers .slidev-code code .line::before {
+  color: var(--or-navy-300);   /* 5.36:1 on navy: line numbers get referenced out loud */
+  width: 1.5em;
+  margin-right: 1.25em;
+}
+
+/* magic-move ({lines: true}): same muted line numbers */
+.slidev-layout .slidev-code-magic-move .shiki-magic-move-line-number {
+  color: var(--or-navy-300);
+  opacity: 1;
+}
+
+/* Slidev's native copy button: the deck sets codeCopy:false; belt and braces */
+.slidev-layout .slidev-code-copy { display: none; }
+
+/* block title / tabs on the navy surface */
+.slidev-layout .slidev-code-block-title {
+  --slidev-code-tab-text-color: var(--or-navy-300);
+  --slidev-code-tab-font-size: var(--or-fs-meta);
+  font-family: var(--or-font-ui);
+}

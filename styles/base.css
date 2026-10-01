@@ -1,0 +1,246 @@
+/*
+ * slidev-theme-oriolrius · base element rules
+ *
+ * Specificity policy:
+ *   - Typography (size / weight / colour / line-height) sits at (0,1,1), e.g. `.slidev-layout h1`.
+ *     That equals Slidev's own element rules and the theme loads later, so NO !important.
+ *     Sizes always read variables (--or-fs-*): a layout changes the variable, not the rule.
+ *   - Margins and text-wrap sit at (0,1,0) through :where(), so UnoCSS utilities (mt-8, mb-4,
+ *     text-balance ...), which load after the theme, still win when an author needs them.
+ *   - Nothing is bare: every rule is under .slidev-layout, so nothing leaks into the presenter,
+ *     overview or editor UIs.
+ */
+
+/* 5.1 the slide surface */
+.slidev-layout {
+  position: relative;
+  height: 100%;
+  font-family: var(--or-font-sans);
+  font-size: var(--or-fs-body);
+  font-weight: var(--or-fw-body, 300);
+  line-height: var(--or-lh-body);
+  letter-spacing: var(--or-ls-body);
+  color: var(--or-fg-body);
+  background: var(--or-bg);
+  padding: var(--or-pad-top) var(--or-pad-x) var(--or-pad-bottom);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+
+/* 5.2 h1: the slide title */
+.slidev-layout h1 {
+  font-family: var(--or-font-sans);
+  font-size: var(--or-fs-title);
+  font-weight: 700;
+  font-style: normal;
+  line-height: var(--or-lh-heading);
+  letter-spacing: 0;
+  color: var(--or-fg-title);
+  text-wrap: balance;
+}
+.slidev-layout :where(h1) { margin: 0 0 2.25rem; }
+
+/* The title rule: the site's short left rule under titles, scaled up.
+   Scoped to SLIDE titles only, so it never appears inside boxes or cards. */
+.slidev-layout > h1::after,
+.slidev-layout .col-header > h1::after,
+.slidev-layout .or-title > h1::after,
+.slidev-layout.center > .my-auto > h1::after {
+  content: '';
+  display: block;
+  width: 140px;
+  height: var(--or-rule);
+  background: var(--or-accent);
+  margin-top: 1rem;
+}
+.slidev-layout.center > .my-auto > h1::after { margin-inline: auto; }
+
+/* 5.3 h2: the lead / subtitle (no underline) */
+.slidev-layout h2,
+.slidev-layout .or-lead {
+  font-family: var(--or-font-sans);
+  font-size: var(--or-fs-lead);
+  font-weight: 500;
+  font-style: italic;
+  line-height: var(--or-lh-lead);
+  letter-spacing: 0;
+  color: var(--or-fg-title);
+}
+.slidev-layout :where(h2, .or-lead) { margin: .5rem 0 1.5rem; }
+
+/* 5.4 h3: box / card / concept titles. Brand rule: Ubuntu 500 in the brand orange. h3 is always
+   >= 24px, so it takes the LARGE ink (#E85A12, AA-large on paper, mist and the peach tint), not the
+   brownish small-text ink. */
+.slidev-layout h3 {
+  font-family: var(--or-font-sans);
+  font-size: var(--or-fs-h3);
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: var(--or-accent-text-large);
+}
+.slidev-layout :where(h3) { margin: 0 0 .75rem; }
+.slidev-layout h3 i { color: var(--or-accent); margin-right: .15em; }
+
+/* h4 (not in the outline, kept sane): a small bold heading in the title colour */
+.slidev-layout h4 {
+  font-size: calc(var(--or-fs-body) * 1.07);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--or-fg-title);
+}
+.slidev-layout :where(h4) { margin: 0 0 .5rem; }
+
+/* 5.5 text. `pretty` avoids one-word last lines; it sits at (0,1,0) so Uno `text-balance` /
+   `text-pretty` on an element win by load order. */
+.slidev-layout :where(p) { margin: 0 0 .75rem; }
+.slidev-layout :where(p, li, blockquote, .or-quotecard-text) { text-wrap: pretty; }
+.slidev-layout :where(p:last-child) { margin-bottom: 0; }
+.slidev-layout strong,
+.slidev-layout b { font-weight: 700; color: var(--or-fg-title); }
+.slidev-layout em,
+.slidev-layout i:not([class*='fa']) { font-style: italic; }
+
+/* 5.6 lists: the site's orange fa-angle-right chevrons */
+.slidev-layout ul { list-style: none; }
+.slidev-layout :where(ul, ol) { margin: 0 0 1rem; padding-left: 2.25rem; }
+.slidev-layout :where(li) { margin: 0 0 .5rem; }
+.slidev-layout :where(li:last-child) { margin-bottom: 0; }
+.slidev-layout li { position: relative; }
+.slidev-layout ul > li::before {
+  content: '\f105';
+  position: absolute;
+  left: -1.6rem;
+  top: 0;
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-style: normal;
+  color: var(--or-accent);
+}
+/* nested: a 10px orange square */
+.slidev-layout li ul { margin: .5rem 0 0; padding-left: 1.75rem; }
+.slidev-layout li ul > li::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  left: -1.4rem;
+  top: calc((1lh - 10px) / 2);
+  background: var(--or-accent);
+}
+.slidev-layout ol { list-style: decimal; }
+/* no extra li padding: ordered and unordered item text start at the same x (padding-left 2.25rem) */
+.slidev-layout ol > li::marker {
+  font-family: var(--or-font-ui);
+  font-weight: 500;
+  color: var(--or-accent-text);
+}
+
+/* 5.7 links: underlined like the site; overrides Slidev's dashed border */
+.slidev-layout a {
+  color: var(--or-accent-text);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .15em;
+  border: 0;
+}
+.slidev-layout a:hover { color: var(--or-fg-title); }
+/* URL links must never wrap mid-token: add {.or-url} (MDC) or class="or-url" and give them their own line */
+.slidev-layout a.or-url,
+.slidev-layout .or-url a { white-space: nowrap; }
+
+/* 5.8 blockquote: overrides Slidev's navy code-background quote */
+.slidev-layout blockquote {
+  background: none;
+  color: var(--or-fg-title);
+  border: 0;
+  border-left: var(--or-bar) solid var(--or-accent);
+  border-radius: 0;
+  font-size: var(--or-fs-body);
+  font-style: italic;
+  font-weight: 300;
+  line-height: var(--or-lh-body);
+  text-align: left;
+}
+.slidev-layout :where(blockquote) { margin: 0 0 1.25rem; padding: .25rem 0 .25rem 1.5rem; }
+.slidev-layout blockquote > * { margin-top: 0; margin-bottom: 0; }
+.slidev-layout blockquote strong { font-style: normal; }
+
+/* 5.9 tables: slate header row (the site's neutral dark; navy is kept for dark moments and code),
+   hairline rows, 22px cells (the floor). Row padding reads --or-th-py / --or-td-py, so `dense` and
+   `.or-table.roomy` change a variable instead of fighting the rule. */
+.slidev-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--or-fs-small);
+  font-weight: 400;
+  line-height: 1.35;
+}
+.slidev-layout :where(table) { margin: 0 0 1.5rem; }
+.slidev-layout th {
+  background: var(--or-slate);   /* white on slate: 7.07:1 */
+  color: #fff;
+  font-family: var(--or-font-ui);
+  font-size: var(--or-fs-small);
+  font-weight: 500;
+  letter-spacing: .3px;
+  text-align: left;
+  padding: var(--or-th-py, .6rem) 1rem;
+  vertical-align: bottom;
+}
+.slidev-layout td {
+  padding: var(--or-td-py, .6rem) 1rem;
+  border-bottom: 1px solid var(--or-line);
+  vertical-align: top;
+  color: var(--or-fg-body);
+}
+.slidev-layout td:first-child { font-weight: 500; color: var(--or-fg-title); }
+/* icons written directly in a cell (not inside chips / stamps) get the accent and a fixed width */
+.slidev-layout td > i[class*="fa-"],
+.slidev-layout th > i[class*="fa-"] { width: 1.25em; text-align: center; margin-right: .4em; color: var(--or-accent); }
+.slidev-layout th > i[class*="fa-"] { color: var(--or-white); }
+/* a second icon mid-cell ("<i/> Model · <i/> Loop") sits tight to its label, like the first one */
+.slidev-layout :is(td, th) > i[class*="fa-"]:not(:first-child) { width: auto; margin-right: .1em; }
+/* a first cell that starts with an icon ("<i …></i> Guardrails") keeps icon + label on one line */
+.slidev-layout td:first-child:has(> i[class*="fa-"]:first-child) { white-space: nowrap; }
+/* (inline code in a header cell: see 5.10, it must come after the generic inline-code rule) */
+.slidev-layout td, .slidev-layout th { font-variant-numeric: tabular-nums; }
+.slidev-layout tr { border: 0; }
+/* dense tables (appendix): the label column never wraps */
+.slidev-layout.dense td:first-child { white-space: nowrap; }
+/* glossary tables: <div class="or-glossary"> + a markdown table → terms in orange ink, never wrapped */
+.slidev-layout .or-glossary td:first-child { white-space: nowrap; }
+.slidev-layout .or-glossary td:first-child,
+.slidev-layout .or-glossary td:first-child strong { color: var(--or-accent-text); font-weight: 700; }
+
+/* 5.10 inline code: a quiet chip that never wraps mid-token */
+.slidev-layout :not(pre) > code {
+  font-family: var(--or-font-mono);
+  font-size: max(.86em, 1.25rem);   /* never under the 20px floor, even in 22px table cells */
+  font-weight: 400;
+  letter-spacing: 0;
+  background: var(--or-code-inline-bg);
+  color: var(--or-code-inline-fg);
+  font-style: normal;
+  padding: .08em .35em;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.slidev-layout :not(pre) > code::before,
+.slidev-layout :not(pre) > code::after { content: none; }
+/* inline code in a header cell: plain white mono, no chip (a chip on the slate row reads as a stray
+   box). Same specificity as the rule above, so it has to come after it. */
+.slidev-layout th > code,
+.slidev-layout th :not(pre) > code { background: none; color: #fff; padding: 0; }
+
+/* 5.11 images: flat, square, never wider than their box */
+.slidev-layout img { max-width: 100%; border-radius: 0; }
+
+/* hr: a hairline */
+.slidev-layout hr { border: 0; border-top: 1px solid var(--or-line); }
+.slidev-layout :where(hr) { margin: 1.5rem 0; }
+
+/* icons: Font Awesome glyphs keep their own metrics */
+.slidev-layout i[class*='fa-'] { font-style: normal; letter-spacing: 0; }

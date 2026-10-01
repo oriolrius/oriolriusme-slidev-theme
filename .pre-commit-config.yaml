@@ -1,0 +1,35 @@
+default_install_hook_types: [pre-commit, commit-msg, pre-push]
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
+    hooks:
+      - id: detect-private-key
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+  - repo: local
+    hooks:
+      - id: gitleaks-staged
+        name: Gitleaks staged secrets
+        entry: gitleaks git --pre-commit --staged --redact
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: gitleaks-history
+        name: Gitleaks full history
+        entry: gitleaks git --log-opts=--all --redact
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
+      - id: commitizen
+        name: Commitizen Conventional Commits
+        entry: cz check --commit-msg-file
+        language: system
+        stages: [commit-msg]

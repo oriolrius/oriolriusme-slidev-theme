@@ -1,0 +1,35 @@
+/*
+ * slidev-theme-oriolrius · print / PDF / PNG export
+ *
+ * IMPORTANT: `slidev export` renders with `media: screen` emulated, so @media print alone does
+ * NOT apply during export. Export-time rules therefore also target:
+ *   - html.print        (Slidev sets it on the stacked /print page: PDF, non-per-slide PNG)
+ *   - .or-is-print      (set by theme layouts / deck components from useNav().isPrintMode,
+ *                        which also covers per-slide export, which runs the play route)
+ * Loops are frozen on their fully visible state so no screenshot catches them mid-animation.
+ */
+@media print {
+  .slidev-layout,
+  .slidev-layout th,
+  .slidev-layout .slidev-code,
+  .or-footer,
+  .or-progress {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .or-zoom { display: none !important; }
+}
+
+@media print {
+  .slidev-layout *,
+  .slidev-layout *::before,
+  .slidev-layout *::after { animation: none !important; }
+}
+html.print .slidev-layout *,
+html.print .slidev-layout *::before,
+html.print .slidev-layout *::after,
+.or-is-print *,
+.or-is-print *::before,
+.or-is-print *::after {
+  animation: none !important;
+}
