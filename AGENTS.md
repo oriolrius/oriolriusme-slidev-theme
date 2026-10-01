@@ -117,9 +117,18 @@ terminal. Never run it as a background task.
 ## Versioning, secrets and CI
 
 - **Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`…), checked by commitizen on `commit-msg` and in CI.
-- **Releases with commitizen**: `cz bump` (bumps `package.json` + `.cz.toml`, updates `CHANGELOG.md`, tags `vX.Y.Z`),
-  then `git push` and `git push origin vX.Y.Z` as a separate push (a tag pushed together with its branch did not trigger
-  the tag run on GitHub). CI creates the GitHub release from the changelog. Decks pin the tag
+- **Releases: notes are mandatory, not only the changelog.** The changelog lists commits; the release notes explain
+  the change to a reader. Steps:
+  1. `cz bump --get-next` → the next version `X.Y.Z`.
+  2. Write `release-notes/vX.Y.Z.md` and commit it (`docs(release): notes for vX.Y.Z`). It must cover: a one-paragraph
+     summary; **Highlights** (what changed and why it matters, in prose, grouped by area); **Breaking changes /
+     upgrade steps** (or "None"); **How it was verified** (build, probe, CI, what was looked at). Write it for someone
+     who never saw the commits.
+  3. `cz bump` (bumps `package.json` + `.cz.toml`, updates `CHANGELOG.md`, tags `vX.Y.Z`).
+  4. `git push`, then `git push origin vX.Y.Z` separately (a tag pushed together with its branch did not trigger the
+     tag run on GitHub).
+  5. CI builds the GitHub release from `release-notes/vX.Y.Z.md` + the changelog section, and **fails without the
+     notes file**. Check the published release page afterwards. Decks pin the tag
   (`github:oriolrius/oriolriusme-slidev-theme#vX.Y.Z`); bump the pin there after a release.
 - **Hooks**: `pre-commit install` once per clone. `pre-commit` runs gitleaks on staged changes + file hygiene,
   `commit-msg` runs `cz check`, `pre-push` runs gitleaks over the full history. Never commit tokens, `.env` files,
